@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+    <body>
+        <div class ='row'>
+            <div style='margin-left:100px;'>
+            <img src = 'https://www.opencodez.com/wp-content/uploads/2017/03/Oracle-Scheduler.jpg' width="100" height="100">
+            </div>
+            <div style='padding-top: 20px; padding-left:20px;'><h3>SCHEDULAR</h3></div>
+        </div> <!--ends intro -->
+
+        <br>
+       <div class ='row'>
+
+        {% block content %}
+        {% if 'query_edit' in request.url %}
+        <div style='margin-left: 100px; width: 45%;'>
+        <div class="alert alert-info" role="alert">
+         <strong>Edit your selected data line here</strong>
+        </div>
+
+        {% for eresult in eresults %}
+
+        <form action = "edit" method = "POST">
+         <p>Name: <input class="form-control" type = "text" name = "name" style='width: 100%;' value='{{eresult["name"]}}'/></p>
+         <p>Creator: <input class="form-control" type = "text" name = "creator" style='width: 100%;' value='{{eresult["creator"]}}' /></p>
+         <p>Is Repeat: <input class="form-control" type="number" name = "isrepeat" min="0" max="1" style='width: 100%;' value='{{eresult["isrepeat"]}}' /></p>
+         <p>Create date: <input class="form-control" type = "text" name = "create_date" style='width: 100%;' value='{{eresult["create_date"]}}' /></p>
+         <p>Start date: <input class="form-control" type ="text" name = "start_date" style='width: 100%;' value='{{eresult["start_date"]}}' /></p>
+         <p>Cron String: <input class="form-control" type ="text" name = "cron_string" style='width: 100%;' value='{{eresult["cron_string"]}}' /></p>
+         <p>Message :<input class="form-control" type ="text" name = "message" style='width: 100%;' value='{{eresult["message"]}}' /></p>	 
+         <input type ="hidden" name = "old_name" value='{{eresult["name"]}}' />
+         <input type ="hidden" name = "old_creator" value='{{eresult["creator"]}}' />
+         <input type ="hidden" name = "opcode" value='SCHEDULE' />	 
+
+         {% endfor %}
+
+         <br>
+
+         <p><input class="btn-primary" type = "submit" value = "Update Data" /></p>
+        </form>
+        </div>
+
+        {% else %}
+        <div style='margin-left: 100px; width: 45%;'>
+        <div class="alert alert-info" role="alert">
+        <strong>Insert your new data line with this form</strong>
+        </div>
+        
+        <form action = "insert" method = "POST">
+         <p>Name: <input class="form-control" type = "text" name = "name" style='width: 100%;' /></p>
+         <p>Creator: <input class="form-control" type = "text" name = "creator" style='width: 100%;' /></p>
+         <p>Is Repeat: <input class="form-control" type = "number" name = "isrepeat" min="0" max="1"  style='width: 100%;' /></p>
+         <p>Create Date: <input class="form-control" type = "text" name = "create_date" style='width: 100%;' /></p>
+         <p>Start Date: <input class="form-control" type ="text" name = "start_date" style='width: 100%;' /></p>
+         <p>Cron String: <input class="form-control" type ="text" name = "cron_string" style='width: 100%;' /></p>
+         <p>Message: <input class="form-control" type ="text" name = "message" style='width: 100%;' /></p>	 
+         <br>
+	 <input type ="hidden" name = "opcode" value='SCHEDULE' />
+         <p><input class="btn-primary" type = "submit" value = "Insert Data" /></p>
+        </form>
+        </div>
+
+
+        {% endif %}
+        {% endblock content %}
+
+        <div style='margin-left: 20px; width: 45%;'>
+        <div class="alert alert-warning" role="alert">
+         <strong>Here is the status of execution</strong>  ...
+        </div>
+        {{msg}}
+        </div>
+
+        </div> <!-- ends row div -->
+
+      <br><br>
+
+        <div class="alert alert-success" role="alert" style='width: 90%; margin-left: 100px;'>
+        <strong>Here is your schedule table below</strong>
+        </div>
+
+      <table class = 'table table-hover' style = 'margin-left: 100px; margin-right: 100px; width: 90%;'>
+         <thead>
+            <tr>
+            <th>Name</th>
+            <th>Creator</th>
+            <th>Is Repeat</th>
+            <th>Create Date</th>
+            <th>Start Date</th>
+            <th>Cron String</th>
+            <th>Message</th>	    
+            <th>EDIT</th>
+            <th>DELETE</th>
+            </tr>
+         </thead>
+
+         {% for result in results %}
+            <tr>
+               <td>{{result["name"]}}</td>
+               <td>{{result["creator"]}}</td>
+               <td>{{result["isrepeat"]}}</td>
+               <td>{{result['create_date']}}</td>
+               <td>{{result['start_date']}}</td>
+               <td>{{result['cron_string']}}</td>
+               <td>{{result['message']}}</td>	       
+               <td align="center"><a href = "{{ url_for('sql_editlink', name=result['name'], creator=result['creator'], opcode='SCHEDULE') }}"><i class="fas fa-edit"></a></td>
+               <td align="center"><a href = "{{ url_for('sql_datadelete', name=result['name'], creator=result['creator'], opcode='SCHEDULE') }}"><i class="fas fa-trash-alt"></a></td>
+            </tr>
+         {% endfor %}
+      </table>
+
+    </body>
+</html>

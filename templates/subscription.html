@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+    <body>
+        <div class ='row'>
+            <div style='margin-left:100px;'>
+            <img src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo-T42xUMwhaO8FXGS0ON7s9RyieXLrT56UA&usqp=CAU' width="70" height="120">
+            </div>
+            <div style='padding-top: 20px; padding-left:20px;'><h3>SUBSCRIPTION</h3></div>
+        </div> <!--ends intro -->
+
+        <br>
+       <div class ='row'>
+
+        {% block content %}
+        {% if 'query_edit' in request.url %}
+        <div style='margin-left: 100px; width: 45%;'>
+        <div class="alert alert-info" role="alert">
+         <strong>Edit your selected data line here</strong>
+        </div>
+
+        {% for eresult in eresults %}
+
+        <form action = "edit" method = "POST">
+          <p>Job Name: <input class="form-control" type = "text" name = "job_name" style='width: 100%;' value='{{eresult["job_name"]}}'/></p>
+          <p>Job Id: <input class="form-control" type ="number" name = "job_id" style='width: 100%;' value='{{eresult["job_id"]}}' /></p>	  
+          <p>Subscriber Name: <input class="form-control" type = "text" name = "subscriber_name" style='width: 100%;' value='{{eresult["subscriber_name"]}}' /></p>
+          <p>Subscriber Id: <input class="form-control" type ="number" name = "subscriber_id" style='width: 100%;' value='{{eresult["subscriber_id"]}}' /></p>
+          <p>Transport (0-4): <input class="form-control" type ="number" name = "transport" min="0" max="4" style='width: 100%;' value='{{eresult["transport"]}}' /></p>	  
+         <input type ="hidden" name = "old_job_name" value='{{eresult["job_name"]}}' />
+         <input type ="hidden" name = "old_subscriber_name" value='{{eresult["subscriber_name"]}}' />
+         <input type ="hidden" name = "old_job_id" value='{{eresult["job_id"]}}' />
+         <input type ="hidden" name = "old_subscriber_id" value='{{eresult["subscriber_id"]}}' />
+         <input type ="hidden" name = "opcode" value='SUBSCRIPTION' />	 
+
+         {% endfor %}
+
+         <br>
+
+         <p><input class="btn-primary" type = "submit" value = "Update Data" /></p>
+        </form>
+        </div>
+
+        {% else %}
+        <div style='margin-left: 100px; width: 45%;'>
+        <div class="alert alert-info" role="alert">
+        <strong>Insert your new data line with this form</strong>
+        </div>
+        
+        <form action = "insert" method = "POST">
+          <p>Job Name: <input class="form-control" type = "text" name = "job_name" style='width: 100%;' /></p>
+          <p>Job Id: <input class="form-control" type="number" name = "job_id" style='width: 100%;' /></p>	  
+          <p>Subscriber Name: <input class="form-control" type = "text" name = "subscriber_name" style='width: 100%;' /></p>
+          <p>Subscriber Id: <input class="form-control"  type ="number" name = "subscriber_id" style='width: 100%;' /></p>
+          <p>Transport (0-4): <input class="form-control"  type ="number" name = "transport" min="0" max="4"  style='width: 100%;' /></p>	  
+         <br>
+	 <input type ="hidden" name = "opcode" value='SUBSCRIPTION' />
+         <p><input class="btn-primary" type = "submit" value = "Insert Data" /></p>
+        </form>
+        </div>
+
+
+        {% endif %}
+        {% endblock content %}
+
+        <div style='margin-left: 20px; width: 45%;'>
+        <div class="alert alert-warning" role="alert">
+         <strong>Here is the status of execution</strong>  ...
+        </div>
+        {{msg}}
+        </div>
+
+        </div> <!-- ends row div -->
+
+      <br><br>
+
+        <div class="alert alert-success" role="alert" style='width: 90%; margin-left: 100px;'>
+        <strong>Here is your schedule table below</strong>
+        </div>
+
+      <table class = 'table table-hover' style = 'margin-left: 100px; margin-right: 100px; width: 90%;'>
+         <thead>
+            <tr>
+            <th>Job Name</th>
+            <th>Job Id</th>
+            <th>Subscriber Name</th>
+            <th>Subscriber Id</th>
+            <th>Transport (0-4)</th>
+            <th>EDIT</th>
+            <th>DELETE</th>
+            </tr>
+         </thead>
+
+         {% for result in results %}
+            <tr>
+               <td>{{result["job_name"]}}</td>
+               <td>{{result["job_id"]}}</td>
+               <td>{{result["subscriber_name"]}}</td>
+               <td>{{result['subscriber_id']}}</td>
+               <td>{{result['transport']}}</td>
+               <td align="center"><a href = "{{ url_for('sql_editlink', job_name=result['job_name'], subscriber_name=result['subscriber_name'], job_id=result['job_id'], subscriber_id=result['subscriber_id'], opcode='SUBSCRIPTION') }}"><i class="fas fa-edit"></a></td>
+               <td align="center"><a href = "{{ url_for('sql_datadelete', job_name=result['job_name'], subscriber_name=result['subscriber_name'], job_id=result['job_id'], subscriber_id=result['subscriber_id'], opcode='SUBSCRIPTION') }}"><i class="fas fa-trash-alt"></a></td>
+            </tr>
+         {% endfor %}
+      </table>
+
+    </body>
+</html>

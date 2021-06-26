@@ -1,0 +1,11 @@
+<!doctype html>
+<html>
+  <body>
+    <p><a href={{ url_for('index') }}>Index</a></p>
+    <ul>
+      <li><a href="{{ url_for('schedule', opcode='SCHEDULE') }}"/>Schedule</a></li>
+      <li><a href="{{ url_for('subscriber', opcode='SUBSCRIBER') }}">Subscriber</a></li>
+      <li><a href="{{ url_for('subscription', opcode='SUBSCRIPTION') }}">Subscription</a></li>
+    </ul>
+</body>
+</html>
