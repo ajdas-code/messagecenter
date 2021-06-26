@@ -103,8 +103,8 @@
                <td>{{result['start_date']}}</td>
                <td>{{result['cron_string']}}</td>
                <td>{{result['message']}}</td>	       
-               <td align="center"><a href = "{{ url_for('sql_editlink', name=result['name'], creator=result['creator'], opcode='SCHEDULE') }}"><i class="fas fa-edit"></a></td>
-               <td align="center"><a href = "{{ url_for('sql_datadelete', name=result['name'], creator=result['creator'], opcode='SCHEDULE') }}"><i class="fas fa-trash-alt"></a></td>
+               <td align="center"><a href = "{{ url_for('sql_editlink', name=result['name'], creator=result['creator'], opcode='SCHEDULE') }}">Edit</a></td>
+               <td align="center"><a href = "{{ url_for('sql_datadelete', name=result['name'], creator=result['creator'], opcode='SCHEDULE') }}">Delete</a></td>
             </tr>
          {% endfor %}
       </table>

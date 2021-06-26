@@ -8,6 +8,17 @@ sys.path.insert(2, "PATH TO FLASK DIRECTORY")  # OPTIONAL: Only if you need to a
 
 app = Flask(__name__)
 
+# initialization
+@app.before_request
+def before_request():
+    from functions.sqlquery import create_table, setup_schema
+    app.logger.info('before request called..')
+    setup_schema()
+    app.logger.info('schema setup done..')
+
+@app.teardown_request
+def teardown_request(exception):
+    app.logger.info('tear down called..')
 
 # entrance gate
 @app.route('/')

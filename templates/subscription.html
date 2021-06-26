@@ -97,8 +97,8 @@
                <td>{{result["subscriber_name"]}}</td>
                <td>{{result['subscriber_id']}}</td>
                <td>{{result['transport']}}</td>
-               <td align="center"><a href = "{{ url_for('sql_editlink', job_name=result['job_name'], subscriber_name=result['subscriber_name'], job_id=result['job_id'], subscriber_id=result['subscriber_id'], opcode='SUBSCRIPTION') }}"><i class="fas fa-edit"></a></td>
-               <td align="center"><a href = "{{ url_for('sql_datadelete', job_name=result['job_name'], subscriber_name=result['subscriber_name'], job_id=result['job_id'], subscriber_id=result['subscriber_id'], opcode='SUBSCRIPTION') }}"><i class="fas fa-trash-alt"></a></td>
+               <td align="center"><a href = "{{ url_for('sql_editlink', job_name=result['job_name'], subscriber_name=result['subscriber_name'], job_id=result['job_id'], subscriber_id=result['subscriber_id'], opcode='SUBSCRIPTION') }}">Edit</a></td>
+               <td align="center"><a href = "{{ url_for('sql_datadelete', job_name=result['job_name'], subscriber_name=result['subscriber_name'], job_id=result['job_id'], subscriber_id=result['subscriber_id'], opcode='SUBSCRIPTION') }}">Delete</a></td>
             </tr>
          {% endfor %}
       </table>
