@@ -1,9 +1,9 @@
 import os
 import sqlite3
 
-Jobheaders = ['name', 'creator', 'isrepeat', 'create_date', 'start_date', 'cron_string', 'message']
-Subscriberheaders = ['name', 'phone', 'email', 'messengerid']
-Subscriptionheaders = ['job_name', 'job_id', 'subscriber_id', 'subscriber_name', 'transport']
+Jobheaders = ['id','name', 'creator', 'isrepeat', 'create_date', 'start_date', 'cron_string', 'message']
+Subscriberheaders = ['id','name', 'phone', 'email', 'messengerid']
+Subscriptionheaders = ['id','job_name', 'job_id', 'subscriber_id', 'subscriber_name', 'transport']
 
 # Create a database
 conn = sqlite3.connect('example.db',check_same_thread=False)

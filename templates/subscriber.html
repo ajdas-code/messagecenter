@@ -75,7 +75,8 @@
 
       <table class = 'table table-hover' style = 'margin-left: 100px; margin-right: 100px; width: 90%;'>
          <thead>
-            <tr>
+           <tr>
+            <th>Id</th>	     	     
             <th>Name</th>
             <th>Phone</th>
             <th>Email</th>
@@ -87,6 +88,7 @@
 
          {% for result in results %}
             <tr>
+               <td>{{result["id"]}}</td>
                <td>{{result["name"]}}</td>
                <td>{{result["phone"]}}</td>
                <td>{{result["email"]}}</td>
